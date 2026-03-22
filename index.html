@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CampusConnect</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Sans:wght@400;500;600&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+
+<body>
+
+    <!-- ========== AUTH PAGE ========== -->
+    <div id="page-auth" class="page active">
+        <div class="auth-container">
+            <div class="auth-brand">
+                <div class="auth-logo"><i class="fa-solid fa-graduation-cap"></i></div>
+                <h1>CampusConnect</h1>
+                <p>Your campus. Your community. Your voice.</p>
+            </div>
+            <div class="auth-card">
+                <div class="auth-tabs">
+                    <button class="auth-tab active" onclick="switchTab('login')">Login</button>
+                    <button class="auth-tab" onclick="switchTab('signup')">Sign Up</button>
+                </div>
+
+                <!-- Login Form -->
+                <div id="tab-login" class="auth-form active">
+                    <div class="input-group">
+                        <i class="fa-solid fa-envelope"></i>
+                        <input type="email" id="login-email" placeholder="College Email" />
+                    </div>
+                    <div class="input-group">
+                        <i class="fa-solid fa-lock"></i>
+                        <input type="password" id="login-pass" placeholder="Password" />
+                    </div>
+                    <button class="btn-primary full" onclick="handleLogin()">Login to Campus</button>
+                    <p class="auth-hint">Demo: use any email &amp; password</p>
+                </div>
+
+                <!-- Signup Form -->
+                <div id="tab-signup" class="auth-form">
+                    <div class="input-group">
+                        <i class="fa-solid fa-user"></i>
+                        <input type="text" id="signup-name" placeholder="Full Name" />
+                    </div>
+                    <div class="input-group">
+                        <i class="fa-solid fa-envelope"></i>
+                        <input type="email" id="signup-email" placeholder="College Email" />
+                    </div>
+                    <div class="input-group">
+                        <i class="fa-solid fa-book"></i>
+                        <input type="text" id="signup-branch" placeholder="Branch / Department" />
+                    </div>
+                    <div class="input-group">
+                        <i class="fa-solid fa-calendar"></i>
+                        <input type="text" id="signup-year" placeholder="Year (e.g. 2nd Year)" />
+                    </div>
+                    <div class="input-group">
+                        <i class="fa-solid fa-lock"></i>
+                        <input type="password" id="signup-pass" placeholder="Create Password" />
+                    </div>
+                    <button class="btn-primary full" onclick="handleSignup()">Join CampusConnect</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== MAIN APP ========== -->
+    <div id="page-app" class="page">
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-brand">
+                <i class="fa-solid fa-graduation-cap"></i>
+                <span>CampusConnect</span>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-item active" onclick="navigate('dashboard', this)">
+                    <i class="fa-solid fa-house"></i><span>Home Feed</span>
+                </a>
+                <a href="#" class="nav-item" onclick="navigate('profile', this)">
+                    <i class="fa-solid fa-circle-user"></i><span>My Profile</span>
+                </a>
+                <a href="#" class="nav-item" onclick="navigate('create', this)">
+                    <i class="fa-solid fa-plus-circle"></i><span>Create Post</span>
+                </a>
+                <a href="#" class="nav-item" onclick="navigate('discussion', this)">
+                    <i class="fa-solid fa-comments"></i><span>Discussions</span>
+                </a>
+                <a href="#" class="nav-item" onclick="navigate('events', this)">
+                    <i class="fa-solid fa-calendar-days"></i><span>Campus Events</span>
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="sidebar-user" id="sidebar-user-info"></div>
+                <button class="btn-logout" onclick="logout()"><i class="fa-solid fa-right-from-bracket"></i>
+                    Logout</button>
+            </div>
+        </aside>
+
+        <!-- MOBILE NAV -->
+        <nav class="mobile-nav">
+            <a href="#" class="mnav-item active" onclick="navigate('dashboard', this)" data-label="Home">
+                <i class="fa-solid fa-house"></i>
+            </a>
+            <a href="#" class="mnav-item" onclick="navigate('profile', this)" data-label="Profile">
+                <i class="fa-solid fa-circle-user"></i>
+            </a>
+            <a href="#" class="mnav-item center" onclick="navigate('create', this)" data-label="Post">
+                <i class="fa-solid fa-plus"></i>
+            </a>
+            <a href="#" class="mnav-item" onclick="navigate('discussion', this)" data-label="Chat">
+                <i class="fa-solid fa-comments"></i>
+            </a>
+            <a href="#" class="mnav-item" onclick="navigate('events', this)" data-label="Events">
+                <i class="fa-solid fa-calendar-days"></i>
+            </a>
+        </nav>
+
+        <!-- MAIN CONTENT AREA -->
+        <main class="main-content">
+
+            <!-- ===== DASHBOARD ===== -->
+            <section id="sec-dashboard" class="section active">
+                <div class="section-header">
+                    <h2>Home Feed</h2>
+                    <span class="badge-live"><i class="fa-solid fa-circle"></i> Live</span>
+                </div>
+                <div class="stories-row">
+                    <div class="story-chip add-story"><i class="fa-solid fa-plus"></i><span>Your Story</span></div>
+                    <div class="story-chip">
+                        <div class="story-av" style="background:#f97316">A</div><span>Arjun</span>
+                    </div>
+                    <div class="story-chip">
+                        <div class="story-av" style="background:#8b5cf6">P</div><span>Priya</span>
+                    </div>
+                    <div class="story-chip">
+                        <div class="story-av" style="background:#0ea5e9">R</div><span>Rohan</span>
+                    </div>
+                    <div class="story-chip">
+                        <div class="story-av" style="background:#10b981">S</div><span>Sneha</span>
+                    </div>
+                </div>
+                <div id="feed-container"></div>
+            </section>
+
+            <!-- ===== PROFILE ===== -->
+            <section id="sec-profile" class="section">
+                <div class="profile-header-card">
+                    <div class="profile-cover"></div>
+                    <div class="profile-info">
+                        <div class="profile-avatar-wrap">
+                            <div class="profile-avatar" id="profile-av"></div>
+                        </div>
+                        <div class="profile-meta">
+                            <h2 id="profile-name">Student Name</h2>
+                            <p id="profile-branch" class="profile-sub"></p>
+                            <p id="profile-year" class="profile-sub"></p>
+                            <p id="profile-email" class="profile-sub"></p>
+                        </div>
+                    </div>
+                    <div class="profile-stats">
+                        <div class="stat"><span id="stat-posts">0</span><small>Posts</small></div>
+                        <div class="stat"><span>128</span><small>Friends</small></div>
+                        <div class="stat"><span>42</span><small>Solved</small></div>
+                    </div>
+                </div>
+                <h3 class="section-sub-title">My Posts</h3>
+                <div id="my-posts-container"></div>
+            </section>
+
+            <!-- ===== CREATE POST ===== -->
+            <section id="sec-create" class="section">
+                <div class="section-header">
+                    <h2>Create a Post</h2>
+                </div>
+                <div class="create-card">
+                    <div class="create-top">
+                        <div class="create-av" id="create-av"></div>
+                        <textarea id="post-text" placeholder="Share something with your campus..." rows="4"></textarea>
+                    </div>
+                    <div class="create-tags">
+                        <label>Category:</label>
+                        <div class="tag-chips">
+                            <span class="tag-chip selected" onclick="selectTag(this, 'General')">General</span>
+                            <span class="tag-chip" onclick="selectTag(this, 'Study')">&#128218; Study</span>
+                            <span class="tag-chip" onclick="selectTag(this, 'Events')">&#127881; Events</span>
+                            <span class="tag-chip" onclick="selectTag(this, 'Doubt')">&#10067; Doubt</span>
+                            <span class="tag-chip" onclick="selectTag(this, 'Funny')">&#128514; Funny</span>
+                            <span class="tag-chip" onclick="selectTag(this, 'Placement')">&#128188; Placement</span>
+                        </div>
+                    </div>
+                    <div class="create-actions">
+                        <label class="file-label"><i class="fa-solid fa-image"></i> Photo<input type="file"
+                                accept="image/*" onchange="previewImage(event)" /></label>
+                        <button class="btn-primary" onclick="createPost()"><i class="fa-solid fa-paper-plane"></i>
+                            Post</button>
+                    </div>
+                    <div id="image-preview-wrap" style="display:none;margin-top:12px;position:relative;">
+                        <img id="image-preview" src="" style="max-width:100%;border-radius:12px;" />
+                        <button onclick="clearImage()" class="clear-img-btn"><i class="fa-solid fa-xmark"></i></button>
+                    </div>
+                </div>
+                <div class="success-toast" id="post-toast">&#10003; Post shared successfully!</div>
+            </section>
+
+            <!-- ===== DISCUSSIONS ===== -->
+            <section id="sec-discussion" class="section">
+                <div class="section-header">
+                    <h2>Discussions &amp; Doubts</h2>
+                </div>
+                <div class="doubt-compose">
+                    <textarea id="doubt-text" placeholder="Ask a doubt or start a discussion..." rows="3"></textarea>
+                    <div class="doubt-actions">
+                        <select id="doubt-subject" class="doubt-select">
+                            <option>Mathematics</option>
+                            <option>Physics</option>
+                            <option>Chemistry</option>
+                            <option>Programming</option>
+                            <option>DBMS</option>
+                            <option>OS</option>
+                            <option>DSA</option>
+                            <option>General</option>
+                        </select>
+                        <button class="btn-primary" onclick="postDoubt()"><i class="fa-solid fa-paper-plane"></i>
+                            Ask</button>
+                    </div>
+                </div>
+                <div id="doubts-container"></div>
+            </section>
+
+            <!-- ===== EVENTS ===== -->
+            <section id="sec-events" class="section">
+                <div class="section-header">
+                    <h2>Campus Events</h2>
+                </div>
+                <div class="events-filter">
+                    <button class="filter-btn active" onclick="filterEvents('all', this)">All</button>
+                    <button class="filter-btn" onclick="filterEvents('tech', this)">Tech</button>
+                    <button class="filter-btn" onclick="filterEvents('cultural', this)">Cultural</button>
+                    <button class="filter-btn" onclick="filterEvents('sports', this)">Sports</button>
+                    <button class="filter-btn" onclick="filterEvents('placement', this)">Placement</button>
+                </div>
+                <div id="events-container" class="events-grid"></div>
+            </section>
+
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
